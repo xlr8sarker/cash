@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sarker Studio | Billing &amp; Cash Memo System</title>
+<link rel="icon" href="assets/logo.jpg" type="image/jpeg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="print-template.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     TOAST CONTAINER
+============================================================= -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- ============================================================
+     APP SHELL
+============================================================= -->
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <img src="assets/logo.jpg" alt="Sarker Studio" class="sidebar-logo" />
+      <div class="sidebar-brand-text">
+        <span class="sidebar-title">SARKER <b>STUDIO</b></span>
+        <span class="sidebar-tagline">Design. Develop. Digitalize.</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-view="dashboard">
+        <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item" data-view="newMemo">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        <span>New Cash Memo</span>
+      </button>
+      <button class="nav-item" data-view="memos">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 7h16v2H4v-2zm0 7h16v2H4v-2z"/></svg>
+        <span>Previous Memos</span>
+      </button>
+      <button class="nav-item" data-view="due">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <span>Due Receipts</span>
+      </button>
+      <button class="nav-item" data-view="sales">
+        <svg viewBox="0 0 24 24"><path d="M3 3v18h18v-2H5V3H3zm16 4l-5 5-4-4-6 6 1.4 1.4L10 12.8l4 4 6.4-6.4z"/></svg>
+        <span>Sales History</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p>© <span id="footYear"></span> Sarker Studio</p>
+      <p class="sidebar-footer-sub">Offline Billing System</p>
+    </div>
+  </aside>
+
+  <!-- OVERLAY for mobile sidebar -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+      <h1 class="topbar-title" id="topbarTitle">Dashboard</h1>
+      <div class="topbar-actions">
+        <button class="btn btn-primary" id="quickNewMemoBtn">
+          <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          New Cash Memo
+        </button>
+      </div>
+    </header>
+
+    <div class="view-container">
+
+      <!-- ============================================================
+           VIEW: DASHBOARD
+      ============================================================= -->
+      <section class="view active" id="view-dashboard">
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-blue">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 7h16v2H4v-2zm0 7h16v2H4v-2z"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="statTotalMemos">0</span>
+              <span class="stat-label">Total Memos</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-navy">
+              <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value">৳<span id="statTotalSales">0</span></span>
+              <span class="stat-label">Total Sales</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-red">
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value">৳<span id="statTotalDue">0</span></span>
+              <span class="stat-label">Total Due</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-green">
+              <svg viewBox="0 0 24 24"><path d="M3 3v18h18v-2H5V3H3zm16 4l-5 5-4-4-6 6 1.4 1.4L10 12.8l4 4 6.4-6.4z"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value">৳<span id="statMonthSales">0</span></span>
+              <span class="stat-label">This Month</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Recent Cash Memos</h2>
+            <button class="btn btn-ghost" data-view-link="memos">View all</button>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="recentMemosTable">
+              <thead>
+                <tr>
+                  <th>Memo No.</th>
+                  <th>Customer</th>
+                  <th>Date</th>
+                  <th>Grand Total</th>
+                  <th>Due</th>
+                  <th>Status</th>
+                  <th class="col-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <div class="empty-state" id="recentEmptyState">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 7h16v2H4v-2zm0 7h16v2H4v-2z"/></svg>
+              <p>No cash memos yet</p>
+              <span>Create your first memo to get started</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           VIEW: NEW / EDIT MEMO
+      ============================================================= -->
+      <section class="view" id="view-newMemo">
+        <form id="memoForm" autocomplete="off">
+          <input type="hidden" id="memoId" />
+
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Memo Details</h2>
+              <div class="memo-no-badge">
+                Memo No. <strong id="memoNoDisplay">SS-202600001</strong>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Memo Date</label>
+                <input type="date" id="memoDate" required />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header"><h2>Customer Information</h2></div>
+            <div class="form-grid form-grid-2">
+              <div class="form-field">
+                <label>Customer Name <span class="req">*</span></label>
+                <input type="text" id="custName" placeholder="e.g. Rahim Uddin" required />
+              </div>
+              <div class="form-field">
+                <label>Company Name</label>
+                <input type="text" id="custCompany" placeholder="e.g. Rahim Traders" />
+              </div>
+              <div class="form-field">
+                <label>Phone Number <span class="req">*</span></label>
+                <input type="tel" id="custPhone" placeholder="e.g. 01XXXXXXXXX" required />
+              </div>
+              <div class="form-field">
+                <label>Email</label>
+                <input type="email" id="custEmail" placeholder="e.g. name@email.com" />
+              </div>
+              <div class="form-field form-field-full">
+                <label>Address</label>
+                <input type="text" id="custAddress" placeholder="e.g. Dhaka, Bangladesh" />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Service Details</h2>
+              <span class="hint-text">Maximum 8 services per memo</span>
+            </div>
+            <div class="table-wrap">
+              <table class="service-table" id="serviceTable">
+                <thead>
+                  <tr>
+                    <th class="col-no">No.</th>
+                    <th>Service</th>
+                    <th class="col-qty">Qty</th>
+                    <th class="col-price">Unit Price (৳)</th>
+                    <th class="col-total">Total (৳)</th>
+                    <th class="col-remove"></th>
+                  </tr>
+                </thead>
+                <tbody id="serviceTableBody"></tbody>
+              </table>
+            </div>
+            <button type="button" class="btn btn-outline btn-add-row" id="addServiceRowBtn">
+              <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              Add Service
+            </button>
+          </div>
+
+          <div class="two-col-panels">
+            <div class="panel">
+              <div class="panel-header"><h2>Payment Method</h2></div>
+              <div class="payment-methods" id="paymentMethods">
+                <label class="radio-chip"><input type="radio" name="paymentMethod" value="Cash" checked><span>Cash</span></label>
+                <label class="radio-chip"><input type="radio" name="paymentMethod" value="bKash"><span>bKash</span></label>
+                <label class="radio-chip"><input type="radio" name="paymentMethod" value="Nagad"><span>Nagad</span></label>
+                <label class="radio-chip"><input type="radio" name="paymentMethod" value="Rocket"><span>Rocket</span></label>
+                <label class="radio-chip"><input type="radio" name="paymentMethod" value="Bank Transfer"><span>Bank Transfer</span></label>
+                <label class="radio-chip"><input type="radio" name="paymentMethod" value="Card"><span>Card</span></label>
+                <label class="radio-chip radio-chip-other">
+                  <input type="radio" name="paymentMethod" value="Other">
+                  <span>Other</span>
+                  <input type="text" id="paymentOtherText" class="inline-input" placeholder="specify..." />
+                </label>
+              </div>
+
+              <div class="form-field" style="margin-top:16px;">
+                <label>Notes</label>
+                <textarea id="memoNotes" rows="3" placeholder="Optional notes for this memo..."></textarea>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header"><h2>Discount &amp; Payment</h2></div>
+              <div class="form-grid form-grid-2">
+                <div class="form-field">
+                  <label>Discount Type</label>
+                  <select id="discountType">
+                    <option value="none">No Discount</option>
+                    <option value="percent">Percentage (%)</option>
+                    <option value="fixed">Fixed Amount (৳)</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label>Discount Value</label>
+                  <input type="number" id="discountValue" min="0" step="0.01" value="0" />
+                </div>
+                <div class="form-field form-field-full">
+                  <label>Advance Paid (৳)</label>
+                  <input type="number" id="advancePaid" min="0" step="0.01" value="0" />
+                </div>
+              </div>
+
+              <div class="totals-box">
+                <div class="totals-row"><span>Subtotal</span><strong id="sumSubtotal">৳0.00</strong></div>
+                <div class="totals-row"><span>Discount</span><strong id="sumDiscount">- ৳0.00</strong></div>
+                <div class="totals-row"><span>Advance Paid</span><strong id="sumAdvance">- ৳0.00</strong></div>
+                <div class="totals-row"><span>Due</span><strong id="sumDue" class="due-amount">৳0.00</strong></div>
+                <div class="totals-row totals-row-grand"><span>Grand Total</span><strong id="sumGrand">৳0.00</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" id="cancelMemoBtn">Cancel</button>
+            <button type="button" class="btn btn-outline" id="previewMemoBtn">Preview</button>
+            <button type="submit" class="btn btn-primary" id="saveMemoBtn">Save Cash Memo</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ============================================================
+           VIEW: PREVIOUS MEMOS
+      ============================================================= -->
+      <section class="view" id="view-memos">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Previous Cash Memos</h2>
+            <div class="search-box">
+              <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 10-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"/></svg>
+              <input type="text" id="memoSearchInput" placeholder="Search by memo no, customer, phone, or company..." />
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="allMemosTable">
+              <thead>
+                <tr>
+                  <th>Memo No.</th>
+                  <th>Customer</th>
+                  <th>Company</th>
+                  <th>Phone</th>
+                  <th>Date</th>
+                  <th>Grand Total</th>
+                  <th>Due</th>
+                  <th class="col-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <div class="empty-state" id="memosEmptyState">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 7h16v2H4v-2zm0 7h16v2H4v-2z"/></svg>
+              <p>No cash memos found</p>
+              <span>Try a different search or create a new memo</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           VIEW: DUE RECEIPTS
+      ============================================================= -->
+      <section class="view" id="view-due">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Due Receipts</h2>
+            <span class="hint-text">Memos with an outstanding balance</span>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="dueMemosTable">
+              <thead>
+                <tr>
+                  <th>Memo No.</th>
+                  <th>Customer</th>
+                  <th>Grand Total</th>
+                  <th>Advance Paid</th>
+                  <th>Due</th>
+                  <th class="col-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <div class="empty-state" id="dueEmptyState">
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <p>No due receipts</p>
+              <span>All memos are fully paid</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           VIEW: SALES HISTORY
+      ============================================================= -->
+      <section class="view" id="view-sales">
+        <div class="panel">
+          <div class="panel-header"><h2>Sales History (by Month)</h2></div>
+          <div class="table-wrap">
+            <table class="data-table" id="salesHistoryTable">
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Memos</th>
+                  <th>Total Sales</th>
+                  <th>Total Due</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <div class="empty-state" id="salesEmptyState">
+              <svg viewBox="0 0 24 24"><path d="M3 3v18h18v-2H5V3H3z"/></svg>
+              <p>No sales history yet</p>
+              <span>Sales data will appear here once you create memos</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ============================================================
+     PREVIEW MODAL
+============================================================= -->
+<div class="modal-overlay" id="previewModalOverlay">
+  <div class="modal modal-large">
+    <div class="modal-header">
+      <h3 id="previewModalTitle">Cash Memo Preview</h3>
+      <button class="modal-close" id="closePreviewBtn">&times;</button>
+    </div>
+    <div class="modal-body" id="previewModalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="previewCloseBtn">Close</button>
+      <button class="btn btn-outline" id="previewPrintBtn">
+        <svg viewBox="0 0 24 24"><path d="M19 8H5a3 3 0 00-3 3v6h4v4h12v-4h4v-6a3 3 0 00-3-3zm-3 11H8v-5h8v5zm3-7a1 1 0 110-2 1 1 0 010 2zm-1-9H6v4h12V3z"/></svg>
+        Print
+      </button>
+      <button class="btn btn-primary" id="previewDownloadBtn">
+        <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
+        Download PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONFIRM MODAL (delete etc.)
+============================================================= -->
+<div class="modal-overlay" id="confirmModalOverlay">
+  <div class="modal modal-small">
+    <div class="modal-header">
+      <h3 id="confirmModalTitle">Are you sure?</h3>
+    </div>
+    <div class="modal-body">
+      <p id="confirmModalText">This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="confirmCancelBtn">Cancel</button>
+      <button class="btn btn-danger" id="confirmOkBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HIDDEN PRINT/PDF TEMPLATE (off-screen, rendered for capture)
+============================================================= -->
+<div id="printRoot" class="print-root"></div>
+
+<!-- Libraries: html2canvas + jsPDF (offline, load from local vendor copies) -->
+<script src="vendor/html2canvas.min.js"></script>
+<script src="vendor/jspdf.umd.min.js"></script>
+
+<script src="services.js"></script>
+<script src="pdf.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
