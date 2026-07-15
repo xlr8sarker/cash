@@ -1,0 +1,340 @@
+/* ==========================================================================
+   SARKER STUDIO — PRINT / PDF TEMPLATE STYLESHEET
+   Replicates the original Cash Memo design 1:1 for print & PDF export.
+   A4 Portrait @ 96px/in canvas base (scaled up for 300 DPI at capture time)
+   ========================================================================== */
+
+.memo-page {
+  width: 794px;      /* A4 @ 96dpi */
+  min-height: 1123px; /* A4 @ 96dpi */
+  background: #ffffff;
+  border: 1.5px solid #D7DCE6;
+  border-radius: 14px;
+  padding: 40px 44px 34px;
+  font-family: 'Inter', Arial, sans-serif;
+  color: #1A2334;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.memo-page * { box-sizing: border-box; }
+
+/* ---------------------------- HEADER ---------------------------- */
+
+.memo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #0B1F3A;
+  margin-bottom: 26px;
+  gap: 20px;
+}
+
+.memo-header-left { display: flex; gap: 16px; align-items: flex-start; }
+
+.memo-logo {
+  width: 62px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.memo-brand-text { display: flex; flex-direction: column; padding-top: 2px; }
+
+.memo-company-name {
+  font-family: 'Sora', Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #0B1F3A;
+  line-height: 1.05;
+  margin: 0 0 3px;
+}
+.memo-company-name .accent { color: #2563EB; }
+
+.memo-tagline {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #1A2334;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+.memo-tagline .accent { color: #2563EB; }
+
+.memo-contact-list { display: flex; flex-direction: column; gap: 4px; }
+.memo-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  color: #374151;
+}
+.memo-contact-row .ci { color: #2563EB; font-size: 13px; width: 14px; text-align: center; }
+
+.memo-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  min-width: 230px;
+}
+
+.memo-type-badge {
+  background: #0B1F3A;
+  color: #ffffff;
+  font-family: 'Sora', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 1px;
+  padding: 10px 26px 10px 20px;
+  clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%);
+}
+
+.memo-meta { width: 100%; }
+.memo-meta-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  font-size: 13px;
+  padding: 5px 0;
+  white-space: nowrap;
+}
+.memo-meta-row .mm-label { color: #374151; font-weight: 600; min-width: 62px; text-align: left; }
+.memo-meta-row .mm-value {
+  color: #0B1F3A;
+  font-weight: 700;
+  border-bottom: 1px dotted #9AA5B5;
+  padding-bottom: 2px;
+  min-width: 130px;
+  text-align: left;
+}
+
+/* ---------------------------- SECTION TITLES ---------------------------- */
+
+.memo-section { margin-bottom: 22px; }
+
+.memo-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Sora', Arial, sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0B1F3A;
+  letter-spacing: 0.3px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.memo-section-title::after {
+  content: "";
+  flex: 1;
+  height: 1.5px;
+  background: #0B1F3A;
+  margin-left: 6px;
+}
+.memo-section-title .st-icon {
+  width: 20px;
+  height: 20px;
+  background: #2563EB;
+  color: #fff;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+/* ---------------------------- CUSTOMER INFO GRID ---------------------------- */
+
+.memo-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+  row-gap: 12px;
+}
+.memo-info-row {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  align-items: baseline;
+}
+.memo-info-row .ir-label { color: #374151; font-weight: 600; min-width: 108px; flex-shrink: 0; }
+.memo-info-row .ir-value {
+  flex: 1;
+  color: #0B1F3A;
+  font-weight: 500;
+  border-bottom: 1px dotted #9AA5B5;
+  padding-bottom: 3px;
+  min-height: 17px;
+  word-break: break-word;
+}
+
+/* ---------------------------- SERVICE TABLE ---------------------------- */
+
+.memo-service-table { width: 100%; border-collapse: collapse; border: 1px solid #D7DCE6; border-radius: 8px; overflow: hidden; }
+.memo-service-table thead th {
+  background: #0B1F3A;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 11px 12px;
+  text-align: left;
+}
+.memo-service-table thead th.mc-no { width: 40px; text-align: center; }
+.memo-service-table thead th.mc-qty { width: 70px; text-align: center; }
+.memo-service-table thead th.mc-price,
+.memo-service-table thead th.mc-total { width: 110px; text-align: right; }
+
+.memo-service-table tbody td {
+  padding: 12px;
+  font-size: 13px;
+  border-bottom: 1px dashed #E3E7EF;
+  color: #1A2334;
+}
+.memo-service-table tbody tr:last-child td { border-bottom: none; }
+.memo-service-table tbody td.mc-no { text-align: center; color: #6B7686; }
+.memo-service-table tbody td.mc-qty { text-align: center; }
+.memo-service-table tbody td.mc-price,
+.memo-service-table tbody td.mc-total { text-align: right; font-weight: 600; }
+.memo-service-table tbody td.mc-total { color: #2563EB; font-weight: 700; }
+.memo-service-table tbody tr.empty-row td { color: transparent; height: 20px; }
+
+/* ---------------------------- BOTTOM GRID: PAYMENT / TOTALS ---------------------------- */
+
+.memo-bottom-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 26px;
+  margin-bottom: 22px;
+  align-items: start;
+}
+
+.memo-checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 10px;
+  column-gap: 10px;
+  margin-bottom: 18px;
+}
+.memo-checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #1A2334; }
+.memo-checkbox-item .cb-box {
+  width: 15px; height: 15px;
+  border: 1.5px solid #6B7686;
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.memo-checkbox-item.checked .cb-box { background: #2563EB; border-color: #2563EB; color: #fff; font-size: 11px; font-weight: 900; }
+.memo-checkbox-item .cb-other-line { border-bottom: 1px dotted #9AA5B5; flex: 1; padding-bottom: 2px; min-width: 40px; }
+
+.memo-notes-lines { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+.memo-notes-line { border-bottom: 1px dotted #9AA5B5; min-height: 15px; font-size: 12.5px; color: #1A2334; padding-bottom: 2px; }
+
+.memo-totals-box {
+  border: 1.5px solid #D7DCE6;
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.memo-totals-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  padding: 7px 0;
+  color: #1A2334;
+}
+.memo-totals-row .tr-label { font-weight: 600; color: #374151; }
+.memo-totals-row .tr-value { font-weight: 700; border-bottom: 1px dotted #9AA5B5; padding-bottom: 2px; min-width: 110px; text-align: right; }
+.memo-totals-row.grand {
+  border-top: 1.5px solid #0B1F3A;
+  margin-top: 8px;
+  padding-top: 12px;
+}
+.memo-totals-row.grand .tr-label { color: #0B1F3A; font-family: 'Sora', Arial, sans-serif; font-weight: 800; font-size: 14.5px; }
+.memo-totals-row.grand .tr-value { color: #2563EB; font-family: 'Sora', Arial, sans-serif; font-weight: 800; font-size: 16.5px; border-bottom: none; }
+
+/* ---------------------------- SIGNATURE ROW ---------------------------- */
+
+.memo-signature-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid #D7DCE6;
+  gap: 40px;
+}
+.memo-sign-col { flex: 1; text-align: center; }
+.memo-sign-col .sign-label { font-size: 12.5px; font-weight: 700; color: #374151; margin-bottom: 34px; text-align: left; }
+.memo-sign-col .sign-line { border-bottom: 1px solid #1A2334; height: 1px; margin-bottom: 6px; }
+
+/* ---------------------------- FOOTER ---------------------------- */
+
+.memo-footer {
+  margin-top: 26px;
+  text-align: center;
+}
+.memo-footer .thank-you {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+  color: #2563EB;
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.memo-footer .thank-you .diamond-line {
+  flex: 1;
+  max-width: 220px;
+  height: 1px;
+  background: #2563EB;
+  position: relative;
+}
+.memo-footer .thank-you .diamond-line::after {
+  content: "◆";
+  position: absolute;
+  top: -6px;
+  color: #2563EB;
+  font-size: 10px;
+}
+.memo-footer .thank-you .diamond-line.left::after { right: -3px; }
+.memo-footer .thank-you .diamond-line.right::after { left: -3px; }
+
+.memo-footer .brand-strip {
+  font-family: 'Sora', Arial, sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #0B1F3A;
+}
+
+/* ---------------------------- DUE RECEIPT SPECIFIC ---------------------------- */
+
+.due-title-badge {
+  background: #DC2626;
+}
+
+.due-info-box {
+  border: 1.5px solid #D7DCE6;
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 22px;
+}
+.due-info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0;
+  font-size: 13.5px;
+  border-bottom: 1px dashed #E3E7EF;
+}
+.due-info-row:last-child { border-bottom: none; }
+.due-info-row .di-label { color: #374151; font-weight: 600; }
+.due-info-row .di-value { color: #0B1F3A; font-weight: 700; }
+.due-info-row.due-highlight .di-value { color: #DC2626; font-family: 'Sora', Arial, sans-serif; font-size: 17px; }
